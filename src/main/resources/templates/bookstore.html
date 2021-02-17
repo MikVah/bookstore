@@ -6,8 +6,27 @@
 </head>
 <body>
 <h1>Bookstore</h1>
-	
-	
+<table>
+	<tbody>
+		<tr>
+			<th>Title</th>
+			<th>Author</th>
+			<th>ISBN</th>
+			<th>Year</th>
+			<th>Price</th>
+		</tr>
+		<tr th:each = "book : ${books}">
+			<td th:text = "${book.title}">
+			<td th:text = "${book.author}">
+			<td th:text = "${book.isbn}">
+			<td th:text = "${book.year}">
+			<td th:text = "${book.price}">
+			<td><a th:href="@{/delete/{id}(id=${book.Id})}">Delete</a>
+		</tr>
+	</tbody>
+</table>
+
+<a href="/add" class="btn">Add book</a>
 
 </body>
 </html>
