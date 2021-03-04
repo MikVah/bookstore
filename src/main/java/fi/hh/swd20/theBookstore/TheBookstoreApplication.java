@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import fi.hh.swd20.theBookstore.domain.Book;
 import fi.hh.swd20.theBookstore.domain.BookRepository;
+import fi.hh.swd20.theBookstore.domain.Category;
+import fi.hh.swd20.theBookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class TheBookstoreApplication {
@@ -16,17 +18,25 @@ public class TheBookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
+	public CommandLineRunner demo(BookRepository brepository, CategoryRepository crepository) {
 		return (args) -> {
-			Book book1 = new Book("Goldilocks and the Three Bears", "Robert Southey", "a1234", 1837, 20.00);
-			Book book2 = new Book("Alice Through the Looking-Glass", "Lewis Carroll", "a5678", 1872, 25.00);
-			Book book3 = new Book("Treasure Island", "Robert Louis Stevenson", "a9123", 1883, 18.50);
 			
-			repository.save(book1);
-			repository.save(book2);
-			repository.save(book3);
+			Category cate1 = new Category("Children");
+			crepository.save(cate1);
+			
+			Category cate2 = new Category("Psychedellic");
+			crepository.save(cate2);
+			
+			Category cate3 = new Category("Adventure");
+			crepository.save(cate3);
+			
+			brepository.save(new Book("Goldilocks and the Three Bears", "Robert Southey", "a1234", 1837, 20.00, cate1));
+			brepository.save(new Book("Alice Through the Looking-Glass", "Lewis Carroll", "a5678", 1872, 25.00, cate2));
+			brepository.save(new Book("Treasure Island", "Robert Louis Stevenson", "a9123", 1883, 18.50, cate3));
 
 		};
 	}
+	
+	
 
 }

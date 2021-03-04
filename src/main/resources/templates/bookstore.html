@@ -3,10 +3,11 @@
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
 <h1>Bookstore</h1>
-<table>
+<table class="table table-striped">
 	<tbody>
 		<tr>
 			<th>Title</th>
@@ -14,19 +15,22 @@
 			<th>ISBN</th>
 			<th>Year</th>
 			<th>Price</th>
+			<th>Genre</th>
 		</tr>
 		<tr th:each = "book : ${books}">
-			<td th:text = "${book.title}">
-			<td th:text = "${book.author}">
-			<td th:text = "${book.isbn}">
-			<td th:text = "${book.year}">
-			<td th:text = "${book.price}">
-			<td><a th:href="@{/delete/{id}(id=${book.Id})}">Delete</a>
+			<td th:text = "${book.title}"/>
+			<td th:text = "${book.author}"/>
+			<td th:text = "${book.isbn}"/>
+			<td th:text = "${book.year}"/>
+			<td th:text = "${book.price}"/>
+			<td th:text = "${book.category.name}"/>
+			<td><a th:href="@{/delete/{id}(id=${book.Id})}" class="btn btn-danger">Delete</a>
+			<td><a th:href="@{/edit/{id}(id=${book.Id})}">Edit</a>
 		</tr>
 	</tbody>
 </table>
 
-<a href="/add" class="btn">Add book</a>
+<a href="/add" class="btn btn-success">Add book</a>
 
 </body>
 </html>

@@ -11,12 +11,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import fi.hh.swd20.theBookstore.domain.Book;
 import fi.hh.swd20.theBookstore.domain.BookRepository;
 
+import fi.hh.swd20.theBookstore.domain.Category;
+import fi.hh.swd20.theBookstore.domain.CategoryRepository;
+
 @Controller
 public class BookController {
 	
 	@Autowired
 	private BookRepository bookRepository;
 
+	@Autowired
+	private CategoryRepository categoryrepository;
+	
 	@RequestMapping(value="/booklist")
 	public String getAllBooks(Model model) {
 		
@@ -36,11 +42,22 @@ public class BookController {
 		return "addbook";
 	}
 	
+	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+	public String editBook(@PathVariable(value="id") Long bookId, Model model) {
+		model.addAttribute("book", bookRepository.findById(bookId));
+		model.addAttribute("categories", categoryrepository.findAll());
+		return "editbook";
+	}
+	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String saveBook(Book book) {
 		bookRepository.save(book);
 		return "redirect:/booklist";
 	}
+	
+	
+	
+	
 	
 	
 }
